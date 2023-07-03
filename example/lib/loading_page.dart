@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+class LoadingPage extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+body: Container(
+width: MediaQuery.of(context).size.width,
+height: MediaQuery.of(context).size.height,
+color: Colors.black,
+child:  Center(
+
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+SvgPicture.asset("assets/images/loadinginfo.svg",width: 150,height: 150,),
+SizedBox(height: 20,),
+    Text("Loading...",style: TextStyle(
+      color: Colors.white
+      ,
+      fontSize: 24
+    ),)
+  ],),
+),
+
+),
+    );
+  }
+}
