@@ -25,9 +25,9 @@ class _FackiKycState extends State<FackiKyc> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
+    return GetMaterialApp(
 
-      body: IntroScreen(),
+      home: IntroScreen(),
     );
   }
 
