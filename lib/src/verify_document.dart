@@ -1,5 +1,5 @@
-import 'package:fackikyc/src/constant/extension.dart';
-import 'package:fackikyc/src/repository.dart';
+import 'package:facekikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -131,7 +131,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                         height: 70,
                         decoration: BoxDecoration(
                             color:
-                                const Color.fromARGB(255, 1, 1, 1).withOpacity(0.05),
+                                Color.fromARGB(255, 1, 1, 1).withOpacity(0.05),
                             borderRadius: BorderRadius.circular(5)),
                         child: Row(
                           children: [
@@ -139,7 +139,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                               width: 10,
                             ),
                             SvgPicture.asset("front_card.svg".imagePath,
-                                package: "fackikyc", height: 30, width: 100),
+                                package: "facekikyc", height: 30, width: 100),
                             const SizedBox(
                               width: 10,
                             ),
@@ -150,7 +150,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                                     TextSpan(
                                         text: "Picture of your ",
                                         style: GoogleFonts.inter(
-                                          color: const Color(0xff4C4E64)
+                                          color: Color(0xff4C4E64)
                                               .withOpacity(0.87),
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400,
@@ -158,7 +158,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                                     TextSpan(
                                         text: "${_repository.selectedIdType}",
                                         style: GoogleFonts.inter(
-                                          color: const Color(0xff4C4E64)
+                                          color: Color(0xff4C4E64)
                                               .withOpacity(0.87),
                                           fontSize: 18,
                                           fontWeight: FontWeight.w700,
@@ -166,7 +166,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                                     TextSpan(
                                         text: " - Front ",
                                         style: GoogleFonts.inter(
-                                          color: const Color(0xff4C4E64)
+                                          color: Color(0xff4C4E64)
                                               .withOpacity(0.87),
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400,
@@ -190,7 +190,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                               width: 10,
                             ),
                             SvgPicture.asset("back_card.svg".imagePath,
-                                package: "fackikyc", height: 30, width: 100),
+                                package: "facekikyc", height: 30, width: 100),
                             const SizedBox(
                               width: 10,
                             ),
@@ -241,7 +241,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                             ),
                             SvgPicture.asset(
                               "back_card.svg".imagePath,
-                              package: "fackikyc",
+                              package: "facekikyc",
                               height: 30,
                               width: 100,
                             ),
@@ -371,7 +371,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
               margin: const EdgeInsets.only(left: 10),
               child: SvgPicture.asset(
                 "footlogo.svg".imagePath,
-                package: "fackikyc",
+                package: "facekikyc",
                 height: 30,
                 width: 50,
               )),

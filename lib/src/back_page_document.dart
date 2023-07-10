@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:fackikyc/src/constant/extension.dart';
-import 'package:fackikyc/src/repository.dart';
+import 'package:facekikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/repository.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ import 'back_page_result.dart';
 import '../constant1/app_text_style.dart';
 import '../constant1/colors.dart';
 
-import '../fackikyc.dart';
+import '../facekikyc.dart';
 
 class BackPageDocument extends StatefulWidget {
  final File frontCard;
@@ -195,7 +195,7 @@ class _BackPageDocumentState extends State<BackPageDocument>
                   children: [
                     SvgPicture.asset(
                       "flip_camera.svg".imagePath,
-                      package: "fackikyc",
+                      package: "facekikyc",
                       width: 25,
                       height: 25,
                     ),
@@ -214,7 +214,7 @@ class _BackPageDocumentState extends State<BackPageDocument>
                 },
                 child: SvgPicture.asset(
                   "camera.svg".imagePath,
-                  package: "fackikyc",
+                  package: "facekikyc",
                   width: 70,
                   height: 70,
                 ),
@@ -240,7 +240,7 @@ class _BackPageDocumentState extends State<BackPageDocument>
                   children: [
                     SvgPicture.asset(
                       "choosefile.svg".imagePath,
-                      package: "fackikyc",
+                      package: "facekikyc",
                       width: 25,
                       height: 25,
                     ),
@@ -265,7 +265,7 @@ class _BackPageDocumentState extends State<BackPageDocument>
               margin: const EdgeInsets.only(left: 10),
               child: SvgPicture.asset(
                 "footlogo.svg".imagePath,
-                package: "fackikyc",
+                package: "facekikyc",
                 height: 30,
                 width: 50,
               )),

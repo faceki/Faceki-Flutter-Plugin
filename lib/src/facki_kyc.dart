@@ -1,20 +1,20 @@
-import 'package:fackikyc/src/repository.dart';
+import 'package:facekikyc/src/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'intro_screen.dart';
 
-class FackiKyc extends StatefulWidget {
+class facekikyc extends StatefulWidget {
   final String clientId;
   final String clientSecret;
-  const FackiKyc(
+  const facekikyc(
       {super.key, required this.clientId, required this.clientSecret});
 
   @override
-  State<FackiKyc> createState() => _FackiKycState();
+  State<facekikyc> createState() => _facekikycState();
 }
 
-class _FackiKycState extends State<FackiKyc> {
+class _facekikycState extends State<facekikyc> {
   @override
   void initState() {
     // TODO: implement initState

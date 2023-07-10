@@ -11,17 +11,12 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-<!-- TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them. -->
 
-
-
-<!-- ## Getting started -->
 
 
 ## Installation
 
-First, add `fackikyc` as a
+First, add `facekikyc: ^1.0.0` as a
 [dependency in your pubspec.yaml file]
 
 ### iOS Setup

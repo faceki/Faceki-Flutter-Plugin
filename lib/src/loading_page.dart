@@ -1,4 +1,4 @@
-import 'package:fackikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -56,7 +56,7 @@ class _LoadingPageState extends State<LoadingPage>
                     width: 100,
                     child: SvgPicture.asset(
                       "loadinginfo.svg".imagePath,
-                      package: "fackikyc",
+                      package: "facekikyc",
                       width: 150,
                       height: 150,
                     )),

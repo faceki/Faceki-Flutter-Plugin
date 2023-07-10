@@ -1,4 +1,4 @@
-import 'package:fackikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'constant/app_text_style.dart';
@@ -56,7 +56,7 @@ class CheckId extends StatelessWidget {
           Center(
             child: Image.asset(
               "inst.png".imagePath,
-              package: "fackikyc",
+              package: "facekikyc",
             ),
           ),
           const Expanded(
@@ -107,7 +107,7 @@ class CheckId extends StatelessWidget {
               margin: const EdgeInsets.only(left: 10),
               child: SvgPicture.asset(
                 "footlogo.svg".imagePath,
-                package: "fackikyc",
+                package: "facekikyc",
                 height: 30,
                 width: 50,
               )),

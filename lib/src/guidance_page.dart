@@ -1,4 +1,4 @@
-import 'package:fackikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -67,7 +67,7 @@ class GuidancePage extends StatelessWidget {
                       image: DecorationImage(
                           image: AssetImage(
                             "imagefront.jpg".imagePath,
-                            package: "fackikyc",
+                            package: "facekikyc",
                           ),
                           fit: BoxFit.cover),
                       borderRadius: BorderRadius.circular(20)
@@ -196,7 +196,7 @@ class GuidancePage extends StatelessWidget {
                 margin: const EdgeInsets.only(left: 10),
                 child: SvgPicture.asset(
                   "footlogo.svg".imagePath,
-                  package: "fackikyc",
+                  package: "facekikyc",
                   height: 30,
                   width: 50,
                 )),

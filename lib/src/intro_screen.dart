@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fackikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../fackikyc.dart';
+import '../facekikyc.dart';
 import 'choose_document.dart';
 
 import 'constant/app_text_style.dart';
@@ -51,7 +51,7 @@ class _IntroScreenState extends State<IntroScreen> {
             ),
             SvgPicture.asset(
               "logo_faceki.svg".imagePath,
-              package: "fackikyc",
+              package: "facekikyc",
               height: 40,
               width: 255,
             ),
@@ -151,7 +151,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 margin: const EdgeInsets.only(left: 10),
                 child: SvgPicture.asset(
                   "footlogo.svg".imagePath,
-                  package: "fackikyc",
+                  package: "facekikyc",
                   height: 30,
                   width: 50,
                 )),
@@ -171,11 +171,11 @@ class _IntroScreenState extends State<IntroScreen> {
       children: [
         (imagePath.contains("svg"))
             ? SvgPicture.asset(imagePath.imagePath,
-                package: "fackikyc",
+                package: "facekikyc",
                 height: MediaQuery.of(context).size.height * 0.3)
             : Image.asset(
                 imagePath.imagePath,
-                package: "fackikyc",
+                package: "facekikyc",
                 height: MediaQuery.of(context).size.height * 0.3,
               ),
 

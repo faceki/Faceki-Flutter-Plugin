@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:fackikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/constant/extension.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../fackikyc.dart';
+import '../facekikyc.dart';
 import 'constant/colors.dart';
 import 'constant/app_text_style.dart';
 
@@ -118,7 +118,7 @@ class _SelfiePageState extends State<SelfiePage>
                     "camera.svg".imagePath,
                     width: 70,
                     height: 70,
-                    package: "fackikyc",
+                    package: "facekikyc",
                   ),
                 ),
                 Text(
@@ -154,7 +154,7 @@ class _SelfiePageState extends State<SelfiePage>
                 children: [
                   SvgPicture.asset(
                     "flip_camera.svg".imagePath,
-                    package: "fackikyc",
+                    package: "facekikyc",
                     width: 20,
                     height: 20,
                   ),
@@ -176,7 +176,7 @@ class _SelfiePageState extends State<SelfiePage>
                 margin: const EdgeInsets.only(left: 10),
                 child: SvgPicture.asset(
                   "footlogo.svg".imagePath,
-                  package: "fackikyc",
+                  package: "facekikyc",
                   height: 30,
                   width: 50,
                 )),

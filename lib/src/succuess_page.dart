@@ -1,4 +1,4 @@
-import 'package:fackikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -21,7 +21,7 @@ child:  Center(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
   SvgPicture.asset("success.svg".imagePath,
-            package: "fackikyc",width: 150,height: 150,),
+            package: "facekikyc",width: 150,height: 150,),
 const SizedBox(height: 10,),
     const Text("Successful",style: TextStyle(
       color: Colors.black,

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:fackikyc/src/constant/extension.dart';
-import 'package:fackikyc/src/front_page_document.dart';
-import 'package:fackikyc/src/repository.dart';
+import 'package:facekikyc/src/constant/extension.dart';
+import 'package:facekikyc/src/front_page_document.dart';
+import 'package:facekikyc/src/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -144,7 +144,7 @@ class BackPageResult extends StatelessWidget {
               margin: const EdgeInsets.only(left: 10),
               child: SvgPicture.asset(
                 "footlogo.svg".imagePath,
-                package: "fackikyc",
+                package: "facekikyc",
                 height: 30,
                 width: 50,
               )),
