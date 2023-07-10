@@ -15,7 +15,7 @@ import 'constant/app_text_style.dart';
 import 'repository.dart';
 
 class SelfiePage extends StatefulWidget {
-  SelfiePage();
+  const SelfiePage({super.key});
   @override
   State<SelfiePage> createState() => _SelfiePageState();
 }
@@ -72,122 +72,120 @@ class _SelfiePageState extends State<SelfiePage>
           ),
         ),
         backgroundColor: Colors.white,
-        body: Container(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const SizedBox(
             height: 70,
           ),
           Column(
             children: [
               Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.6,
+            decoration: const BoxDecoration(
+              color: Colors.black,
+            ),
+            child: AspectRatio(
+              aspectRatio: (!controller!.value.isInitialized)
+                  ? 1 / 1
+                  : controller!.value.aspectRatio,
+              child: CameraPreview(
+                controller!,
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.white.withOpacity(0.8),
+                          width: 170,
+                          strokeAlign: BorderSide.strokeAlignCenter,
+                          style: BorderStyle.solid),
+                      borderRadius: const BorderRadius.all(
+                          Radius.elliptical(600, 900))),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: MediaQuery.of(context).size.width * 0.343,
+            bottom: MediaQuery.of(context).size.height * 0.025,
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    onTakePictureButtonPressed();
+                  },
+                  child: SvgPicture.asset(
+                    "camera.svg".imagePath,
+                    width: 70,
+                    height: 70,
+                    package: "fackikyc",
+                  ),
+                ),
+                Text(
+                  "Take a selfie",
+                  style: AppTextStyles.medium(
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  "More about face verification",
+                  style: AppTextStyles.medium(
+                      fontSize: 10, color: AppColors.primaryColor),
+                )
+              ],
+            ),
+          ),
+          Positioned(
+            right: 15,
+            bottom: 50,
+            child: GestureDetector(
+              onTap: () {
+                if (cameras.length < 2) {
+                  return;
+                }
+                if (currentCameraIndex == 0) {
+                  currentCameraIndex = 1;
+                } else {
+                  currentCameraIndex = 0;
+                }
+                onNewCameraSelected(cameras[currentCameraIndex]);
+              },
+              child: Column(
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                    ),
-                    child: AspectRatio(
-                      aspectRatio: (!controller!.value.isInitialized)
-                          ? 1 / 1
-                          : controller!.value.aspectRatio,
-                      child: CameraPreview(
-                        controller!,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.white.withOpacity(0.8),
-                                  width: 170,
-                                  strokeAlign: BorderSide.strokeAlignCenter,
-                                  style: BorderStyle.solid),
-                              borderRadius: const BorderRadius.all(
-                                  Radius.elliptical(600, 900))),
-                        ),
-                      ),
-                    ),
+                  SvgPicture.asset(
+                    "flip_camera.svg".imagePath,
+                    package: "fackikyc",
+                    width: 20,
+                    height: 20,
                   ),
-                  Positioned(
-                    left: MediaQuery.of(context).size.width * 0.343,
-                    bottom: MediaQuery.of(context).size.height * 0.025,
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            onTakePictureButtonPressed();
-                          },
-                          child: SvgPicture.asset(
-                            "camera.svg".imagePath,
-                            width: 70,
-                            height: 70,
-                            package: "fackikyc",
-                          ),
-                        ),
-                        Text(
-                          "Take a selfie",
-                          style: AppTextStyles.medium(
-                            fontSize: 12,
-                          ),
-                        ),
-                        Text(
-                          "More about face verification",
-                          style: AppTextStyles.medium(
-                              fontSize: 10, color: AppColors.primaryColor),
-                        )
-                      ],
+                  Text(
+                    "Flip Camera",
+                    style: AppTextStyles.regular(
+                      fontSize: 8,
                     ),
-                  ),
-                  Positioned(
-                    right: 15,
-                    bottom: 50,
-                    child: GestureDetector(
-                      onTap: () {
-                        if (cameras.length < 2) {
-                          return;
-                        }
-                        if (currentCameraIndex == 0) {
-                          currentCameraIndex = 1;
-                        } else {
-                          currentCameraIndex = 0;
-                        }
-                        onNewCameraSelected(cameras[currentCameraIndex]);
-                      },
-                      child: Column(
-                        children: [
-                          SvgPicture.asset(
-                            "flip_camera.svg".imagePath,
-                            package: "fackikyc",
-                            width: 20,
-                            height: 20,
-                          ),
-                          Text(
-                            "Flip Camera",
-                            style: AppTextStyles.regular(
-                              fontSize: 8,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 20,
-                    left: 10,
-                    child: Container(
-                        alignment: Alignment.bottomLeft,
-                        margin: EdgeInsets.only(left: 10),
-                        child: SvgPicture.asset(
-                          "footlogo.svg".imagePath,
-                          package: "fackikyc",
-                          height: 30,
-                          width: 50,
-                        )),
-                  ),
+                  )
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            left: 10,
+            child: Container(
+                alignment: Alignment.bottomLeft,
+                margin: const EdgeInsets.only(left: 10),
+                child: SvgPicture.asset(
+                  "footlogo.svg".imagePath,
+                  package: "fackikyc",
+                  height: 30,
+                  width: 50,
+                )),
+          ),
+        ],
               ),
             ],
           )
-        ])));
+        ]));
   }
 
   Future<void> _initializeCameraController(
@@ -214,7 +212,6 @@ class _SelfiePageState extends State<SelfiePage>
     try {
       await cameraController.initialize();
     } on CameraException catch (e) {
-      print("error initizlize camera ${e.code}");
       switch (e.code) {
         case 'CameraAccessDenied':
           showInSnackBar('You have denied camera access.');
@@ -253,12 +250,9 @@ class _SelfiePageState extends State<SelfiePage>
         setState(() {
           imageFile = file;
         });
-        final _repository = Get.find<Repository>();
-        _repository.selfieImage = File(file!.path);
-        _repository.postKyc(context);
-        if (file != null) {
-          print("file path ${file.path}");
-        }
+        final repository = Get.find<Repository>();
+        repository.selfieImage = File(file!.path);
+        repository.postKyc(context);
       }
     });
   }

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SuccessPage extends StatelessWidget{
+  const SuccessPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
    
     return Scaffold(
-body: Container(
+body: SizedBox(
 width: MediaQuery.of(context).size.width,
 height: MediaQuery.of(context).size.height,
 

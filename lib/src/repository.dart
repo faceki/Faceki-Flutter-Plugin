@@ -62,9 +62,9 @@ class Repository extends GetxController {
           final json = jsonDecode(response.body);
           rules(List.from(json['data']['allowedKycDocuments']));
           remainingDoc = List.from(json['data']['allowedKycDocuments']);
-          print("rules $rules");
         }
       }
+    // ignore: empty_catches
     } catch (ex) {}
   }
 
@@ -77,15 +77,16 @@ class Repository extends GetxController {
         final json = jsonDecode(response.body);
         return json['data']['access_token'];
       }
+    // ignore: empty_catches
     } catch (ex) {}
+    return null;
   }
 
   Future postKyc(BuildContext context) async {
     try {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoadingPage()));
+          context, MaterialPageRoute(builder: (context) => const LoadingPage()));
 
-      print("token is $token");
       if (token != null) {
         var request = http.MultipartRequest(
             "POST",
@@ -103,7 +104,6 @@ class Repository extends GetxController {
           } else {
             id = "";
           }
-          print("your id is $id");
           request.files.add(
             await http.MultipartFile.fromPath(
                 "${id}_front_image", element.frontImage!.path,
@@ -125,16 +125,15 @@ class Repository extends GetxController {
             {"Authorization": "Bearer $token", "Content-Type": "Content-Type"});
 
         var streamResponse = await request.send();
-        print("result is here ${streamResponse.statusCode}");
         final result = await http.Response.fromStream(streamResponse);
 
-        print("result is respons eis ${result.body}");
         final json = jsonDecode(result.body);
         int responseCode = json['responseCode'];
         if (responseCode == 0) {
+          // ignore: use_build_context_synchronously
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => SuccessPage()),
+              MaterialPageRoute(builder: (context) => const SuccessPage()),
               ModalRoute.withName('/'));
         } else {
           if (responseCode == 1000) {
@@ -179,6 +178,7 @@ class Repository extends GetxController {
             errorMeaing = "Unknown issue";
           }
 
+          // ignore: use_build_context_synchronously
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => UnSuccessPage()),

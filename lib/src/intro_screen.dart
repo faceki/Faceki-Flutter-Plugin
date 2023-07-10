@@ -11,6 +11,8 @@ import 'constant/app_text_style.dart';
 import 'constant/colors.dart';
 
 class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
+
   @override
   State<IntroScreen> createState() => _IntroScreenState();
 }
@@ -63,22 +65,21 @@ class _IntroScreenState extends State<IntroScreen> {
             const SizedBox(
               height: 40,
             ),
-            Container(
-                child: CarouselSlider(
+            CarouselSlider(
               carouselController: _controller,
               options: CarouselOptions(
-                  aspectRatio: 1.1,
-                  enlargeCenterPage: false,
-                  enableInfiniteScroll: false,
-                  initialPage: 0,
-                  autoPlay: true,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                    });
-                  }),
+              aspectRatio: 1.1,
+              enlargeCenterPage: false,
+              enableInfiniteScroll: false,
+              initialPage: 0,
+              autoPlay: true,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _current = index;
+                });
+              }),
               items: imagelist,
-            )),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: imagelist.asMap().entries.map((entry) {
@@ -88,7 +89,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     width: 12.0,
                     height: 12.0,
                     margin:
-                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                        const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: (Theme.of(context).brightness == Brightness.dark
@@ -102,7 +103,7 @@ class _IntroScreenState extends State<IntroScreen> {
             const Expanded(
               child: SizedBox(),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -112,7 +113,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ChooseDocument()));
+                              builder: (context) => const ChooseDocument()));
                     },
                     child: Container(
                       alignment: Alignment.bottomRight,

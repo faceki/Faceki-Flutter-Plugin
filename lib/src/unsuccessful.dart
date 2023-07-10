@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 
 class UnSuccessPage extends StatelessWidget {
   final _repository = Get.find<Repository>();
+
+   UnSuccessPage({super.key});
   @override
   Widget build(BuildContext context) {
   
@@ -51,7 +53,7 @@ class UnSuccessPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushAndRemoveUntil(context,
                         MaterialPageRoute(builder: (BuildContext context) {
-                      return IntroScreen();
+                      return const IntroScreen();
                     }), (r) {
                       return false;
                     });

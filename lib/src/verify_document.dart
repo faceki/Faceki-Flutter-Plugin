@@ -11,6 +11,8 @@ import 'constant/app_text_style.dart';
 import 'constant/colors.dart';
 
 class VerifyDocument extends StatefulWidget {
+  const VerifyDocument({super.key});
+
   @override
   State<VerifyDocument> createState() => _VerifyDocumentState();
 }
@@ -57,7 +59,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
               "To do this, we'll need the following.. ",
               style: AppTextStyles.regular(
                 fontSize: 18,
-                color: Color(0xff585858),
+                color: const Color(0xff585858),
               ),
             ),
           ),
@@ -78,7 +80,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                     Text(
                       "1",
                       style: GoogleFonts.inter(
-                        color: Color(0xff4C4E64),
+                        color: const Color(0xff4C4E64),
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
                       ),
@@ -89,12 +91,12 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                     Container(
                       height: 30,
                       width: 2,
-                      color: Color(0xff4C4E64).withOpacity(0.1),
+                      color: const Color(0xff4C4E64).withOpacity(0.1),
                     ),
                     Text(
                       "2",
                       style: GoogleFonts.inter(
-                        color: Color(0xff4C4E64),
+                        color: const Color(0xff4C4E64),
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
                       ),
@@ -110,7 +112,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                     Text(
                       "3",
                       style: GoogleFonts.inter(
-                        color: Color(0xff4C4E64),
+                        color: const Color(0xff4C4E64),
                         fontWeight: FontWeight.w600,
                         fontSize: 24,
                       ),
@@ -128,8 +130,8 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: 70,
                         decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 1, 1, 1)
-                                .withOpacity(0.05),
+                            color:
+                                const Color.fromARGB(255, 1, 1, 1).withOpacity(0.05),
                             borderRadius: BorderRadius.circular(5)),
                         child: Row(
                           children: [
@@ -148,7 +150,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                                     TextSpan(
                                         text: "Picture of your ",
                                         style: GoogleFonts.inter(
-                                          color: Color(0xff4C4E64)
+                                          color: const Color(0xff4C4E64)
                                               .withOpacity(0.87),
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400,
@@ -156,7 +158,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                                     TextSpan(
                                         text: "${_repository.selectedIdType}",
                                         style: GoogleFonts.inter(
-                                          color: Color(0xff4C4E64)
+                                          color: const Color(0xff4C4E64)
                                               .withOpacity(0.87),
                                           fontSize: 18,
                                           fontWeight: FontWeight.w700,
@@ -164,7 +166,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                                     TextSpan(
                                         text: " - Front ",
                                         style: GoogleFonts.inter(
-                                          color: Color(0xff4C4E64)
+                                          color: const Color(0xff4C4E64)
                                               .withOpacity(0.87),
                                           fontSize: 18,
                                           fontWeight: FontWeight.w400,
@@ -180,7 +182,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: 70,
                         decoration: BoxDecoration(
-                            color: Color(0xff4C4E64).withOpacity(0.05),
+                            color: const Color(0xff4C4E64).withOpacity(0.05),
                             borderRadius: BorderRadius.circular(5)),
                         child: Row(
                           children: [
@@ -198,24 +200,24 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                                 TextSpan(
                                     text: "Picture of your ",
                                     style: GoogleFonts.inter(
-                                      color:
-                                          Color(0xff4C4E64).withOpacity(0.87),
+                                      color: const Color(0xff4C4E64)
+                                          .withOpacity(0.87),
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400,
                                     )),
                                 TextSpan(
                                     text: "${_repository.selectedIdType}",
                                     style: GoogleFonts.inter(
-                                      color:
-                                          Color(0xff4C4E64).withOpacity(0.87),
+                                      color: const Color(0xff4C4E64)
+                                          .withOpacity(0.87),
                                       fontSize: 18,
                                       fontWeight: FontWeight.w700,
                                     )),
                                 TextSpan(
                                     text: " - Back ",
                                     style: GoogleFonts.inter(
-                                      color:
-                                          Color(0xff4C4E64).withOpacity(0.87),
+                                      color: const Color(0xff4C4E64)
+                                          .withOpacity(0.87),
                                       fontSize: 18,
                                       fontWeight: FontWeight.w400,
                                     ))
@@ -251,8 +253,8 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                               TextSpan(
                                   text: "Take a selfie picture",
                                   style: GoogleFonts.inter(
-                                    color:
-                                        Color(0xff4C4E64).withOpacity(0.87),
+                                    color: const Color(0xff4C4E64)
+                                        .withOpacity(0.87),
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
                                   )),
@@ -283,7 +285,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
               TextSpan(
                   text: "&",
                   style: GoogleFonts.inter(
-                    color: Color(0xff747171),
+                    color: const Color(0xff747171),
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   )),
@@ -317,7 +319,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
                 child: Text(
                   "I confirm I have read, understood and agree to continue.",
                   style: GoogleFonts.inter(
-                    color: Color(0xff747171),
+                    color: const Color(0xff747171),
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                   ),
@@ -332,7 +334,7 @@ class _VerifyDocumentState extends State<VerifyDocument> {
               onTap: () {
                 if (isSelected) {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CheckId()));
+                      MaterialPageRoute(builder: (context) => const CheckId()));
                 }
               },
               child: Container(

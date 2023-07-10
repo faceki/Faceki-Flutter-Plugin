@@ -19,8 +19,8 @@ import '../constant1/colors.dart';
 import '../fackikyc.dart';
 
 class BackPageDocument extends StatefulWidget {
-  File frontCard;
-  BackPageDocument({required this.frontCard});
+ final File frontCard;
+  const BackPageDocument({super.key, required this.frontCard});
   @override
   State<BackPageDocument> createState() => _BackPageDocumentState();
 }
@@ -30,16 +30,13 @@ class _BackPageDocumentState extends State<BackPageDocument>
   CameraController? controller;
   XFile? imageFile;
 
-  double _minAvailableZoom = 0.5;
-  double _maxAvailableZoom = 0.5;
-  double _currentScale = 0.5;
-  double _baseScale = 1.0;
+
 
   int currentCameraIndex = 0;
   final _repository = Get.find<Repository>();
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     if (cameras.isNotEmpty) {
       _initializeCameraController(cameras[currentCameraIndex]);
@@ -67,217 +64,215 @@ class _BackPageDocumentState extends State<BackPageDocument>
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 70,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Icon(
-                    Icons.arrow_back_rounded,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  "Verify your identity",
-                  style: AppTextStyles.regularColor(fontSize: 24),
-                ),
-                const Icon(
-                  Icons.info_outline,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 70,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(
+                  Icons.arrow_back_rounded,
                   color: Colors.black,
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: Text(
-                "You'll need to take a photo of your ${_repository.selectedIdType}.",
-                style: AppTextStyles.regular(
-                  fontSize: 18,
-                  color: const Color(0xff585858),
                 ),
               ),
+              Text(
+                "Verify your identity",
+                style: AppTextStyles.regularColor(fontSize: 24),
+              ),
+              const Icon(
+                Icons.info_outline,
+                color: Colors.black,
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: Text(
+              "You'll need to take a photo of your ${_repository.selectedIdType}.",
+              style: AppTextStyles.regular(
+                fontSize: 18,
+                color: const Color(0xff585858),
+              ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "BACK SIDE",
-                      style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "BACK SIDE",
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontSize: 12,
                     ),
                   ),
                 ),
-                Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width * 0.6,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color(0xff7B7B7B), width: 0)),
-                    child: (controller == null)
-                        ? const Text("No camera available")
-                        : (!controller!.value.isInitialized)
-                            ? const Text("Initializing camera")
-                            : ClipRect(
-                                child: OverflowBox(
-                                  alignment: Alignment.center,
-                                  child: FittedBox(
-                                    fit: BoxFit.cover,
-                                    child: SizedBox(
-                                      height: 1,
-                                      child: AspectRatio(
-                                        aspectRatio:
-                                            1 / controller!.value.aspectRatio,
-                                        child: CameraPreview(controller!),
-                                      ),
+              ),
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * 0.6,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: const Color(0xff7B7B7B), width: 0)),
+                  child: (controller == null)
+                      ? const Text("No camera available")
+                      : (!controller!.value.isInitialized)
+                          ? const Text("Initializing camera")
+                          : ClipRect(
+                              child: OverflowBox(
+                                alignment: Alignment.center,
+                                child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: SizedBox(
+                                    height: 1,
+                                    child: AspectRatio(
+                                      aspectRatio:
+                                          1 / controller!.value.aspectRatio,
+                                      child: CameraPreview(controller!),
                                     ),
                                   ),
                                 ),
-                              )),
-              ],
+                              ),
+                            )),
+            ],
+          ),
+          const SizedBox(
+            height: 70,
+          ),
+          Center(
+              child: Text(
+            "We'll ask you to enable camera access",
+            style: AppTextStyles.regular(
+              fontSize: 16,
             ),
-            const SizedBox(
-              height: 70,
+          )),
+          Center(
+              child: Text(
+            "More about verification",
+            style: AppTextStyles.regular(
+              fontSize: 16,
+              color: AppColors.primaryColor,
             ),
-            Center(
-                child: Text(
-              "We'll ask you to enable camera access",
-              style: AppTextStyles.regular(
-                fontSize: 16,
-              ),
-            )),
-            Center(
-                child: Text(
-              "More about verification",
-              style: AppTextStyles.regular(
-                fontSize: 16,
-                color: AppColors.primaryColor,
-              ),
-            )),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (cameras.length < 2) {
-                      return;
-                    }
-                    if (currentCameraIndex == 0) {
-                      currentCameraIndex = 1;
-                    } else {
-                      currentCameraIndex = 0;
-                    }
-                    onNewCameraSelected(cameras[currentCameraIndex]);
-                  },
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        "flip_camera.svg".imagePath,
-                        package: "fackikyc",
-                        width: 25,
-                        height: 25,
+          )),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  if (cameras.length < 2) {
+                    return;
+                  }
+                  if (currentCameraIndex == 0) {
+                    currentCameraIndex = 1;
+                  } else {
+                    currentCameraIndex = 0;
+                  }
+                  onNewCameraSelected(cameras[currentCameraIndex]);
+                },
+                child: Column(
+                  children: [
+                    SvgPicture.asset(
+                      "flip_camera.svg".imagePath,
+                      package: "fackikyc",
+                      width: 25,
+                      height: 25,
+                    ),
+                    Text(
+                      "Flip Camera",
+                      style: AppTextStyles.regular(
+                        fontSize: 10,
                       ),
-                      Text(
-                        "Flip Camera",
-                        style: AppTextStyles.regular(
-                          fontSize: 10,
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-                GestureDetector(
-                  onTap: () {
-                    onTakePictureButtonPressed();
-                  },
-                  child: SvgPicture.asset(
-                    "camera.svg".imagePath,
-                    package: "fackikyc",
-                    width: 70,
-                    height: 70,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    final ImagePicker picker = ImagePicker();
-
-                    final XFile? image =
-                        await picker.pickImage(source: ImageSource.gallery);
-                    if (image != null) {
-                      // ignore: use_build_context_synchronously
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BackPageResult(
-                                    file: File(image.path),
-                                    frontFile: widget.frontCard,
-                                  )));
-                    }
-                  },
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        "choosefile.svg".imagePath,
-                        package: "fackikyc",
-                        width: 25,
-                        height: 25,
-                      ),
-                      Text(
-                        "Upload Document",
-                        style: AppTextStyles.regular(
-                          fontSize: 10,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const Expanded(
-              child: SizedBox(
-                  // height: 100,
-                  ),
-            ),
-            Container(
-                alignment: Alignment.bottomLeft,
-                margin: const EdgeInsets.only(left: 10),
+              ),
+              GestureDetector(
+                onTap: () {
+                  onTakePictureButtonPressed();
+                },
                 child: SvgPicture.asset(
-                  "footlogo.svg".imagePath,
+                  "camera.svg".imagePath,
                   package: "fackikyc",
-                  height: 30,
-                  width: 50,
-                )),
-            const SizedBox(
-              height: 30,
-            )
-          ],
-        ),
+                  width: 70,
+                  height: 70,
+                ),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  final ImagePicker picker = ImagePicker();
+
+                  final XFile? image =
+                      await picker.pickImage(source: ImageSource.gallery);
+                  if (image != null) {
+                    // ignore: use_build_context_synchronously
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BackPageResult(
+                                  file: File(image.path),
+                                  frontFile: widget.frontCard,
+                                )));
+                  }
+                },
+                child: Column(
+                  children: [
+                    SvgPicture.asset(
+                      "choosefile.svg".imagePath,
+                      package: "fackikyc",
+                      width: 25,
+                      height: 25,
+                    ),
+                    Text(
+                      "Upload Document",
+                      style: AppTextStyles.regular(
+                        fontSize: 10,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const Expanded(
+            child: SizedBox(
+            
+                ),
+          ),
+          Container(
+              alignment: Alignment.bottomLeft,
+              margin: const EdgeInsets.only(left: 10),
+              child: SvgPicture.asset(
+                "footlogo.svg".imagePath,
+                package: "fackikyc",
+                height: 30,
+                width: 50,
+              )),
+          const SizedBox(
+            height: 30,
+          )
+        ],
       ),
     );
   }
@@ -308,14 +303,13 @@ class _BackPageDocumentState extends State<BackPageDocument>
       await cameraController.initialize();
       await Future.wait(<Future<Object?>>[
         cameraController.getMaxZoomLevel().then((double value) {
-          _maxAvailableZoom = value;
+             cameraController.setZoomLevel(value - 1);
+             return null;
         }),
-        cameraController.getMinZoomLevel().then((double value) {
-          _minAvailableZoom = value;
-        }),
+
       ]);
     } on CameraException catch (e) {
-      print("error initizlize camera ${e.code}");
+     
       switch (e.code) {
         case 'CameraAccessDenied':
           showInSnackBar('You have denied camera access.');

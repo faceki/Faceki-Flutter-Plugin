@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:camera/camera.dart';
 import 'package:fackikyc/src/constant/extension.dart';
 import 'package:fackikyc/src/repository.dart';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -20,6 +18,8 @@ import 'constant/colors.dart';
 import 'front_page_result.dart';
 
 class FrontPageDocument extends StatefulWidget {
+  const FrontPageDocument({super.key});
+
   @override
   State<FrontPageDocument> createState() => _FrontPageDocumentState();
 }
@@ -29,7 +29,6 @@ class _FrontPageDocumentState extends State<FrontPageDocument>
   CameraController? controller;
   XFile? imageFile;
 
-  double _minAvailableZoom = 2.0;
   double _maxAvailableZoom = 2.0;
 
   int currentCameraIndex = 0;
@@ -41,7 +40,6 @@ class _FrontPageDocumentState extends State<FrontPageDocument>
     if (cameras.isNotEmpty) {
       _initializeCameraController(cameras[currentCameraIndex]);
     } else {
-      print("camera is null");
       availableCameras().then((value) {
         cameras = value;
         _initializeCameraController(cameras[currentCameraIndex]);
@@ -138,9 +136,9 @@ class _FrontPageDocumentState extends State<FrontPageDocument>
                       border:
                           Border.all(color: const Color(0xff7B7B7B), width: 0)),
                   child: (controller == null)
-                      ? Text("No camera available")
+                      ? const Text("No camera available")
                       : (!controller!.value.isInitialized)
-                          ? Text("Initializing camera")
+                          ? const Text("Initializing camera")
                           : ClipRect(
                               child: OverflowBox(
                                 alignment: Alignment.center,
@@ -230,6 +228,7 @@ class _FrontPageDocumentState extends State<FrontPageDocument>
                   final XFile? image =
                       await picker.pickImage(source: ImageSource.gallery);
                   if (image != null) {
+                    // ignore: use_build_context_synchronously
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -307,13 +306,9 @@ class _FrontPageDocumentState extends State<FrontPageDocument>
         cameraController
             .getMaxZoomLevel()
             .then((double value) => _maxAvailableZoom = value),
-        cameraController
-            .getMinZoomLevel()
-            .then((double value) => _minAvailableZoom = value),
         cameraController.setZoomLevel(_maxAvailableZoom - 1)
       ]);
     } on CameraException catch (e) {
-      print("error initizlize camera ${e.code}");
       switch (e.code) {
         case 'CameraAccessDenied':
           showInSnackBar('You have denied camera access.');
