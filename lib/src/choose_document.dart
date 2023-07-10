@@ -24,6 +24,7 @@ class _ChooseDocumentState extends State<ChooseDocument> {
     return Material(
       child: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
@@ -189,15 +190,16 @@ class _ChooseDocumentState extends State<ChooseDocument> {
             ),
             Container(
                 alignment: Alignment.bottomLeft,
-                margin: EdgeInsets.only(left: 10),
+                margin: EdgeInsets.only(left: 30),
                 child: SvgPicture.asset(
                   "footlogo.svg".imagePath,
                   package: "fackikyc",
+                  fit: BoxFit.cover,
                   height: 30,
                   width: 50,
                 )),
             SizedBox(
-              height: 50,
+              height: 20,
             )
           ],
         ),

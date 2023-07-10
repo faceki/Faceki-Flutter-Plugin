@@ -1,16 +1,11 @@
-
 import 'package:fackikyc/src/constant/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import 'package:google_fonts/google_fonts.dart';
-
-
 import 'constant/app_text_style.dart';
 import 'constant/colors.dart';
 import 'front_page_document.dart';
 
-class CheckId extends StatelessWidget{
+class CheckId extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -19,7 +14,7 @@ class CheckId extends StatelessWidget{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 70,
             ),
             Row(
@@ -27,7 +22,7 @@ class CheckId extends StatelessWidget{
               children: [
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back_rounded,
                     color: Colors.black,
                   ),
@@ -36,7 +31,7 @@ class CheckId extends StatelessWidget{
                   "Verify your identity",
                   style: AppTextStyles.regularColor(fontSize: 24),
                 ),
-                Icon(
+                const Icon(
                   Icons.info_outline,
                   color: Colors.black,
                 )
@@ -54,27 +49,24 @@ class CheckId extends StatelessWidget{
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Center(
-            child: Image.asset("inst.png".imagePath,
-            package: "fackikyc",),
+              child: Image.asset(
+                "inst.png".imagePath,
+                package: "fackikyc",
+              ),
             ),
-            Expanded(
+            const Expanded(
               child: SizedBox(
                   // height: 100,
                   ),
             ),
-           
-          
             Container(
-              width: MediaQuery.of(context).size.width*0.87 ,
-           
-                 alignment: Alignment.bottomRight,
+              width: MediaQuery.of(context).size.width * 0.87,
+              alignment: Alignment.bottomRight,
               child: Container(
-                
-             
                 width: 70,
                 height: 40,
                 decoration: BoxDecoration(
@@ -82,7 +74,10 @@ class CheckId extends StatelessWidget{
                     borderRadius: BorderRadius.circular(5)),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>FrontPageDocument()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FrontPageDocument()));
                   },
                   child: Center(
                     child: Row(
@@ -95,7 +90,7 @@ class CheckId extends StatelessWidget{
                             color: Colors.white,
                           ),
                         ),
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward_ios_outlined,
                           color: Colors.white,
                           size: 16,
@@ -111,11 +106,11 @@ class CheckId extends StatelessWidget{
                 margin: EdgeInsets.only(left: 10),
                 child: SvgPicture.asset(
                   "footlogo.svg".imagePath,
-            package: "fackikyc",
+                  package: "fackikyc",
                   height: 30,
                   width: 50,
                 )),
-            SizedBox(
+            const SizedBox(
               height: 50,
             )
           ],
@@ -123,5 +118,4 @@ class CheckId extends StatelessWidget{
       ),
     );
   }
-
 }

@@ -3,10 +3,12 @@ import 'dart:math';
 
 import 'package:camera/camera.dart';
 import 'package:fackikyc/src/constant/extension.dart';
+import 'package:fackikyc/src/repository.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,8 +19,6 @@ import 'constant/colors.dart';
 
 import 'front_page_result.dart';
 
-import 'verify_document.dart';
-
 class FrontPageDocument extends StatefulWidget {
   @override
   State<FrontPageDocument> createState() => _FrontPageDocumentState();
@@ -28,15 +28,12 @@ class _FrontPageDocumentState extends State<FrontPageDocument>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   CameraController? controller;
   XFile? imageFile;
-  double _minAvailableExposureOffset = 0.0;
-  double _maxAvailableExposureOffset = 0.0;
-  double _currentExposureOffset = 0.0;
+
   double _minAvailableZoom = 2.0;
   double _maxAvailableZoom = 2.0;
-  double _currentScale = 1.0;
-  double _baseScale = 1.0;
-  int _pointers = 0;
+
   int currentCameraIndex = 0;
+  final _repository = Get.find<Repository>();
   @override
   void initState() {
     // TODO: implement initState
@@ -45,16 +42,11 @@ class _FrontPageDocumentState extends State<FrontPageDocument>
       _initializeCameraController(cameras[currentCameraIndex]);
     } else {
       print("camera is null");
-     availableCameras().then((value){
-
-cameras=value;
- _initializeCameraController(cameras[currentCameraIndex]);
-setState(() {
-  
-});
-     });
-
-      // showInSnackBar('Camera is not available');
+      availableCameras().then((value) {
+        cameras = value;
+        _initializeCameraController(cameras[currentCameraIndex]);
+        setState(() {});
+      });
     }
   }
 
@@ -62,7 +54,6 @@ setState(() {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     final CameraController? cameraController = controller;
 
-    // App state changed before we got the chance to initialize.
     if (cameraController == null || !cameraController.value.isInitialized) {
       return;
     }
@@ -74,43 +65,8 @@ setState(() {
     }
   }
 
-  void _handleScaleStart(ScaleStartDetails details) {
-    _baseScale = _currentScale;
-  }
-
-  Future<void> _handleScaleUpdate(ScaleUpdateDetails details) async {
-    // When there are not exactly two fingers on screen don't scale
-    if (controller == null || _pointers != 2) {
-      return;
-    }
-
-    _currentScale = (_baseScale * details.scale)
-        .clamp(_minAvailableZoom, _maxAvailableZoom);
-
-    await controller!.setZoomLevel(_currentScale);
-  }
-
-  void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
-    if (controller == null) {
-      return;
-    }
-
-    final CameraController cameraController = controller!;
-
-    final Offset offset = Offset(
-      details.localPosition.dx / constraints.maxWidth,
-      details.localPosition.dy / constraints.maxHeight,
-    );
-    cameraController.setExposurePoint(offset);
-    cameraController.setFocusPoint(offset);
-  }
-
   @override
   Widget build(BuildContext context) {
-      //  controller!.setZoomLevel(1.0);
-      //  controller!.setExposurePoint(Offset(0, 0));
-       
-    // TODO: implement build
     return Material(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +78,7 @@ setState(() {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.pop(context);
                 },
                 child: const Icon(
@@ -145,7 +101,7 @@ setState(() {
           ),
           Center(
             child: Text(
-              "You'll need to take a photo of your ID.",
+              "You'll need to take a photo of your ${_repository.selectedIdType}. ",
               style: AppTextStyles.regular(
                 fontSize: 18,
                 color: const Color(0xff585858),
@@ -176,29 +132,35 @@ setState(() {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.5,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                        color: const Color(0xff7B7B7B), width: 0)),
-                child:(controller==null)?Text("No camera available"): CameraPreview(
-                  controller!,
-                  // child: LayoutBuilder(builder:
-                  //     (BuildContext context, BoxConstraints constraints) {
-                  //   return GestureDetector(
-                  //     behavior: HitTestBehavior.opaque,
-                  //     onScaleStart: _handleScaleStart,
-                  //     onScaleUpdate: _handleScaleUpdate,
-                  //     onTapDown: (TapDownDetails details) =>
-                  //         onViewFinderTap(details, constraints),
-                  //   );
-                  // }),
-                ),
-              ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * 0.6,
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(color: const Color(0xff7B7B7B), width: 0)),
+                  child: (controller == null)
+                      ? Text("No camera available")
+                      : (!controller!.value.isInitialized)
+                          ? Text("Initializing camera")
+                          : ClipRect(
+                              child: OverflowBox(
+                                alignment: Alignment.center,
+                                child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: SizedBox(
+                                    height: 1,
+                                    child: AspectRatio(
+                                      aspectRatio:
+                                          1 / controller!.value.aspectRatio,
+                                      child: CameraPreview(controller!),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )),
             ],
           ),
           const SizedBox(
-            height: 30,
+            height: 70,
           ),
           Center(
               child: Text(
@@ -236,8 +198,8 @@ setState(() {
                 child: Column(
                   children: [
                     SvgPicture.asset(
-                      "flip_camera.svg"   .imagePath,
-          package: "fackikyc",
+                      "flip_camera.svg".imagePath,
+                      package: "fackikyc",
                       width: 25,
                       height: 25,
                     ),
@@ -255,8 +217,8 @@ setState(() {
                   onTakePictureButtonPressed();
                 },
                 child: SvgPicture.asset(
-                  "camera.svg"   .imagePath,
-          package: "fackikyc",
+                  "camera.svg".imagePath,
+                  package: "fackikyc",
                   width: 70,
                   height: 70,
                 ),
@@ -267,17 +229,19 @@ setState(() {
 
                   final XFile? image =
                       await picker.pickImage(source: ImageSource.gallery);
-                if(image!=null){
-
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>
-      FrontPageResult(file: File(image.path))));
-                }      
+                  if (image != null) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                FrontPageResult(file: File(image.path))));
+                  }
                 },
                 child: Column(
                   children: [
                     SvgPicture.asset(
-                      "choosefile.svg"   .imagePath,
-          package: "fackikyc",
+                      "choosefile.svg".imagePath,
+                      package: "fackikyc",
                       width: 25,
                       height: 25,
                     ),
@@ -301,8 +265,8 @@ setState(() {
               alignment: Alignment.bottomLeft,
               margin: const EdgeInsets.only(left: 10),
               child: SvgPicture.asset(
-                "footlogo.svg"   .imagePath,
-          package: "fackikyc",
+                "footlogo.svg".imagePath,
+                package: "fackikyc",
                 height: 30,
                 width: 50,
               )),
@@ -316,10 +280,9 @@ setState(() {
 
   Future<void> _initializeCameraController(
       CameraDescription cameraDescription) async {
-    
     final CameraController cameraController = CameraController(
       cameraDescription,
-   ResolutionPreset.medium, 
+      ResolutionPreset.medium,
       enableAudio: false,
       imageFormatGroup: ImageFormatGroup.jpeg,
     );
@@ -339,27 +302,16 @@ setState(() {
 
     try {
       await cameraController.initialize();
+
       await Future.wait(<Future<Object?>>[
-        // The exposure mode is currently not supported on the web.
-        ...!kIsWeb
-            ? <Future<Object?>>[
-                cameraController.getMinExposureOffset().then(
-                    (double value) => _minAvailableExposureOffset = value),
-                cameraController
-                    .getMaxExposureOffset()
-                    .then((double value) => _maxAvailableExposureOffset = value)
-              ]
-            : <Future<Object?>>[],
         cameraController
             .getMaxZoomLevel()
             .then((double value) => _maxAvailableZoom = value),
         cameraController
             .getMinZoomLevel()
             .then((double value) => _minAvailableZoom = value),
+        cameraController.setZoomLevel(_maxAvailableZoom - 1)
       ]);
-      // print("minimum zoom level is $_minAvailableZoom");
-      // print("maximum zoom level is $_maxAvailableZoom");
-   
     } on CameraException catch (e) {
       print("error initizlize camera ${e.code}");
       switch (e.code) {
@@ -374,17 +326,7 @@ setState(() {
           // iOS only
           showInSnackBar('Camera access is restricted.');
           break;
-        case 'AudioAccessDenied':
-          showInSnackBar('You have denied audio access.');
-          break;
-        case 'AudioAccessDeniedWithoutPrompt':
-          // iOS only
-          showInSnackBar('Please go to Settings app to enable audio access.');
-          break;
-        case 'AudioAccessRestricted':
-          // iOS only
-          showInSnackBar('Audio access is restricted.');
-          break;
+
         default:
           _showCameraException(e);
           break;
@@ -409,14 +351,14 @@ setState(() {
       if (mounted) {
         setState(() {
           imageFile = file;
-          // videoController?.dispose();
-          // videoController = null;
         });
 
         if (file != null) {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>
-        FrontPageResult(file: File(file!.path))));
-          print("file path ${file.path}");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      FrontPageResult(file: File(file.path))));
         }
       }
     });
@@ -430,7 +372,6 @@ setState(() {
     }
 
     if (cameraController.value.isTakingPicture) {
-      // A capture is already pending, do nothing.
       return null;
     }
 
@@ -449,7 +390,6 @@ setState(() {
   }
 
   void _showCameraException(CameraException e) {
-    // _logError(e.code, e.description);
     showInSnackBar('Error: ${e.code}\n${e.description}');
   }
 }

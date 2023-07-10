@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +24,7 @@ class Repository extends GetxController {
   String? token;
   String? currentType;
   File? selfieImage;
-  String baseurl="sdk.faceki.com";
+  String baseurl = "sdk.faceki.com";
   @override
   void onInit() {
     // TODO: implement onInit
@@ -34,6 +34,7 @@ class Repository extends GetxController {
   Future selectedType(String type) async {
     currentType = type;
     remainingDoc.remove(type);
+    selectedIdType = type;
   }
 
   void addSelectedDoc(File frontId, File backId) {
@@ -44,7 +45,6 @@ class Repository extends GetxController {
 
   void setNextDoc() {
     selectedType(remainingDoc.first);
-
   }
 
   Future getRules() async {
@@ -52,15 +52,12 @@ class Repository extends GetxController {
       final token = await getToken(clientId!, clientSecret!);
       this.token = token;
       if (token != null) {
-        final response = await http.get(
-            Uri.parse("https://$baseurl/kycrules/api/kycrules"),
-            headers: {
-              "Authorization": "Bearer $token",
-              "Content-Type": "Content-Type"
-            });
-        if (kDebugMode) {
-          print("rules is here ${response.body}");
-        }
+        final response = await http
+            .get(Uri.parse("https://$baseurl/kycrules/api/kycrules"), headers: {
+          "Authorization": "Bearer $token",
+          "Content-Type": "Content-Type"
+        });
+
         if (response.statusCode == 200 || response.statusCode == 201) {
           final json = jsonDecode(response.body);
           rules(List.from(json['data']['allowedKycDocuments']));
@@ -68,39 +65,25 @@ class Repository extends GetxController {
           print("rules $rules");
         }
       }
-    } catch (ex) {
-      print("here error is ${ex.toString()}");
-    }
+    } catch (ex) {}
   }
 
- Future<String?> getToken(String clientId, String clientSecret) async {
+  Future<String?> getToken(String clientId, String clientSecret) async {
     try {
       final response = await http.get(Uri.parse(
           "https://$baseurl/auth/api/access-token?clientId=$clientId&clientSecret=$clientSecret"));
-
-      if (kDebugMode) {
-        print("response is here ${response.body}");
-      }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final json = jsonDecode(response.body);
         return json['data']['access_token'];
       }
-    } catch (ex) {
-      print("here get token error is ${ex.toString()}");
-    }
+    } catch (ex) {}
   }
 
-  Future postKyc(
-   ) async {
+  Future postKyc(BuildContext context) async {
     try {
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //         builder: (context) => LoadingPage(
-      //               face: faceId,
-      //             )));
-                  Get.off(LoadingPage());
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoadingPage()));
 
       print("token is $token");
       if (token != null) {
@@ -109,80 +92,50 @@ class Repository extends GetxController {
             Uri.parse(
                 "https://$baseurl/kycverify/api/kycverify/multi-kyc-verification"));
 
-            for (var element in documentType) {
-              String? id;
-              if(element.type!.contains("ID Card")){
-        id="id";
-
-              }else if(element.type!.contains("Passport")){
-
-                id="pp";
-              }else if(element.type!.contains("Driver License")){
-                id="dl";
-              }else{
-                id="";
-              }
-              print("your id is $id");
-              request.files.add( await http.MultipartFile.fromPath("${id}_front_image", element.frontImage!.path,
-              contentType: MediaType('image', 'jpeg')),);
-               request.files.add( await http.MultipartFile.fromPath("${id}_back_image", element.backImage!.path,
-              contentType: MediaType('image', 'jpeg')),);
-
-            }
-          // print("request is   ${request.}");
-            request.files.add(
-            await http.MultipartFile.fromPath("selfie_image", selfieImage!.path,
+        for (var element in documentType) {
+          String? id;
+          if (element.type!.contains("ID Card")) {
+            id = "id";
+          } else if (element.type!.contains("Passport")) {
+            id = "pp";
+          } else if (element.type!.contains("Driver License")) {
+            id = "dl";
+          } else {
+            id = "";
+          }
+          print("your id is $id");
+          request.files.add(
+            await http.MultipartFile.fromPath(
+                "${id}_front_image", element.frontImage!.path,
                 contentType: MediaType('image', 'jpeg')),
           );
-        // request.files.addAll([
-        //   await http.MultipartFile.fromPath("selfie_image", faceId.path,
-        //       contentType: MediaType('image', 'jpeg')),
-        //   await http.MultipartFile.fromPath("doc_back_image", backId.path,
-        //       contentType: MediaType('image', 'jpeg')),
-        //   await http.MultipartFile.fromPath("doc_front_image", frontId.path,
-        //       contentType: MediaType('image', 'jpeg')),
-        // ]);
+          request.files.add(
+            await http.MultipartFile.fromPath(
+                "${id}_back_image", element.backImage!.path,
+                contentType: MediaType('image', 'jpeg')),
+          );
+        }
 
-        // if(faceId.existsSync()){
-        //   request.files.add(
-        //     await http.MultipartFile.fromPath("selfie_image", faceId.path,
-        //         contentType: MediaType('image', 'jpeg')),
-        //   );
-        //   print("face file is exist");
-        // }
-        // if(backId.existsSync()){
-        //   request.files.add(
-        //     await http.MultipartFile.fromPath("doc_back_image", backId.path,
-        //         contentType: MediaType('image', 'jpeg')
-        //         ),
-        //   );
-        //   print("back file is existing");
-        // }
-        // if(frontId.existsSync()){
-
-        //       request.files.add(
-        //     await http.MultipartFile.fromPath("doc_front_image", frontId.path,
-        //         contentType: MediaType('image', 'jpeg')
-        //         ),
-        //   );
-        //   print("front file is existing ${frontId.path}");
-        // }
+        request.files.add(
+          await http.MultipartFile.fromPath("selfie_image", selfieImage!.path,
+              contentType: MediaType('image', 'jpeg')),
+        );
 
         request.headers.addAll(
             {"Authorization": "Bearer $token", "Content-Type": "Content-Type"});
-        //print("request is ${request.fields.toString()}");
+
         var streamResponse = await request.send();
         print("result is here ${streamResponse.statusCode}");
         final result = await http.Response.fromStream(streamResponse);
-        // String result =
-        //     await streamResponse.stream.transform(const Utf8Decoder()).single;
+
         print("result is respons eis ${result.body}");
         final json = jsonDecode(result.body);
         int responseCode = json['responseCode'];
         if (responseCode == 0) {
-          Get.off( SuccessPage());
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => SuccessPage()));
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => SuccessPage()),
+              ModalRoute.withName('/'));
         } else {
           if (responseCode == 1000) {
             errorMeaing = "Internal System Error";
@@ -225,17 +178,20 @@ class Repository extends GetxController {
           } else {
             errorMeaing = "Unknown issue";
           }
-          Get.off(UnSuccessPage());
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => UnSuccessPage()));
+
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => UnSuccessPage()),
+              ModalRoute.withName('/'));
         }
       }
     } catch (ex) {
-      errorMeaing = ex.toString();
-      print("error is ${ex.toString()}");
-       Get.off(UnSuccessPage());
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (context) => UnSuccessPage()));
+      errorMeaing = "Error occurred";
+
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => UnSuccessPage()),
+          ModalRoute.withName('/'));
     }
   }
 }

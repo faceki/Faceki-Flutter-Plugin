@@ -1,4 +1,5 @@
 import 'package:fackikyc/fackikyc.dart';
+import 'package:fackikyc/src/loading_page.dart';
 import 'package:fackikyc/src/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,9 @@ import 'package:get/get.dart';
 import 'intro_screen.dart';
 
 class  FackiKyc extends StatefulWidget{
-  const FackiKyc({super.key});
+  final String clientId;
+  final String clientSecret;
+  const FackiKyc({super.key, required this.clientId,required this.clientSecret});
 
   @override
   State<FackiKyc> createState() => _FackiKycState();
@@ -18,21 +21,20 @@ class _FackiKycState extends State<FackiKyc> {
     // TODO: implement initState
     super.initState();
    final repository= Get.put(Repository(),permanent: true);
-   repository.clientId="2b8tr0234c8aq878vhdap44l63";
-   repository.clientSecret="1caci0co3hs8rlc18tj7vbqadrb44nhtu7ipelk0nr4lftf0h5l6";
+   repository.clientId=widget.clientId;
+   repository.clientSecret=widget.clientSecret;
    repository.getRules();
   }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GetMaterialApp(
+    return Scaffold(
 
-      home: IntroScreen(),
+      body: 
+     
+      IntroScreen(),
     );
   }
 
-  Future inilizeL(BuildContext context)async{
-showDialog(context: context, builder: (context)=> IntroScreen());
 
-  }
 }
