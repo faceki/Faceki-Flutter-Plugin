@@ -23,13 +23,48 @@ TODO: List what your package can do. Maybe include images, gifs, or videos.
 TODO: List prerequisites and provide or point to information on how to
 start using the package.
 
+## Installation
+
+First, add `fackikyc` as a
+[dependency in your pubspec.yaml file]
+
+### iOS Setup
+Add the following keys to your _Info.plist_ file, located in
+`<project root>/ios/Runner/Info.plist`:
+
+* `NSPhotoLibraryUsageDescription` - describe why your app needs permission for
+the photo library. This is called _Privacy - Photo Library Usage Description_ in
+the visual editor.
+  * This permission will not be requested if you always pass `false` for
+  `requestFullMetadata`, but App Store policy requires including the plist
+  entry.
+* `NSCameraUsageDescription` - describe why your app needs access to the camera.
+This is called _Privacy - Camera Usage Description_ in the visual editor.
+
+### Android Setup
+Add this permission to your AndroidManifest.xml  File
+
+ * `<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>`
+ * `<uses-permission android:name="android.permission.INTERNET" />`
+
 ## Usage
 
 TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder.
 
 ```dart
-const like = 'sample';
+@override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home:const FackiKyc(clientId: "2b8tr0234c8aq878vhdap44l63",clientSecret: "1caci0co3hs8rlc18tj7vbqadrb44nhtu7ipelk0nr4lftf0h5l6",),
+    );
+  }
 ```
 
 ## Additional information
