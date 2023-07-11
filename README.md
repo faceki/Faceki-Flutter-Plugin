@@ -43,16 +43,28 @@ Add this permission to your AndroidManifest.xml  File
 
 
 ```dart
-@override
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
+     
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:const facekikyc(clientId: "2b8tr0234c8aq878vhdap44l63",clientSecret: "1caci0co3hs8rlc18tj7vbqadrb44nhtu7ipelk0nr4lftf0h5l6",),
+      home: facekikyc(
+        clientId: "2b8tr0234c8aq878vhdap44l63",
+        clientSecret: "1caci0co3hs8rlc18tj7vbqadrb44nhtu7ipelk0nr4lftf0h5l6",
+        onSuccess: (po) {
+          // action to be done
+          print("success response is $po");
+        },
+        onError: (po) {
+// action to be done
+          print("error response is $po");
+        },
+      ),
     );
   }
 ```

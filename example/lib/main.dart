@@ -1,12 +1,8 @@
-
-
 import 'package:facekikyc/facekikyc.dart';
 
 import 'package:flutter/material.dart';
 
-
-
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());
@@ -21,26 +17,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
+     
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:const facekikyc(clientId: "2b8tr0234c8aq878vhdap44l63",clientSecret: "1caci0co3hs8rlc18tj7vbqadrb44nhtu7ipelk0nr4lftf0h5l6",),
+      home: facekikyc(
+        clientId: "2b8tr0234c8aq878vhdap44l63",
+        clientSecret: "1caci0co3hs8rlc18tj7vbqadrb44nhtu7ipelk0nr4lftf0h5l6",
+        onSuccess: (po) {
+          // action to be done
+          print("success response is $po");
+        },
+        onError: (po) {
+// action to be done
+          print("error response is $po");
+        },
+      ),
     );
   }
 }
-

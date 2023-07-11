@@ -25,6 +25,9 @@ class Repository extends GetxController {
   String? currentType;
   File? selfieImage;
   String baseurl = "sdk.faceki.com";
+  Function(Map<String,dynamic>)? onSuccess;
+  Function(Map<String,dynamic>)? onError;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -135,7 +138,11 @@ class Repository extends GetxController {
               context,
               MaterialPageRoute(builder: (context) => const SuccessPage()),
               ModalRoute.withName('/'));
+              if(onSuccess!=null){
+              onSuccess!(json);
+              }
         } else {
+
           if (responseCode == 1000) {
             errorMeaing = "Internal System Error";
           } else if (responseCode == 7001) {
@@ -183,6 +190,9 @@ class Repository extends GetxController {
               context,
               MaterialPageRoute(builder: (context) => UnSuccessPage()),
               ModalRoute.withName('/'));
+                  if(onError!=null){
+              onError!(json);
+              }
         }
       }
     } catch (ex) {
