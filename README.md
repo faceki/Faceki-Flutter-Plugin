@@ -37,6 +37,13 @@ Add this permission to your AndroidManifest.xml  File
 
  * `<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>`
  * `<uses-permission android:name="android.permission.INTERNET" />`
+## Getting Started
+
+You can get your client id and client secret using the portal. Here is a guide which will help you setup your account:
+
+* https://kycdocv2.faceki.com/quick-guides/verification-settings
+
+* https://kycdocv2.faceki.com/quick-guides/integration-setting
 
 ## Usage
 
@@ -54,8 +61,8 @@ Add this permission to your AndroidManifest.xml  File
         useMaterial3: true,
       ),
       home: facekikyc(
-        clientId: "2b8tr0234c8aq878vhdap44l63",
-        clientSecret: "1caci0co3hs8rlc18tj7vbqadrb44nhtu7ipelk0nr4lftf0h5l6",
+        clientId: "your-client-key",
+        clientSecret: "your-client-secret",
         onSuccess: (po) {
           // action to be done
           print("success response is $po");
