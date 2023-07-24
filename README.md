@@ -12,7 +12,7 @@ and the Flutter guide for
 -->
 
 
-
+V1.1 Stable version | Release Date: 20/07/2023 
 
 ## Installation
 
