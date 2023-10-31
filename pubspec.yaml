@@ -1,6 +1,6 @@
 name: facekikyc
 description: Flutter SDK for Facki Kyc.
-version: 1.0.0
+version: 1.0.1
 homepage: "https://github.com/faceki/Faceki-Flutter-Plugin"
 
 environment:
